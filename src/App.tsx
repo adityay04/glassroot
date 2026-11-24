@@ -15,9 +15,10 @@ type ViewState = 'landing' | 'dashboard' | 'docs' | 'about';
 function App() {
   const [view, setView] = useState<ViewState>('landing');
   const [isHistoryOpen, setIsHistoryOpen] = useState(false);
+  const [isPackageDetailsOpen, setIsPackageDetailsOpen] = useState(false);
   const [history, setHistory] = useState<ScanRecord[]>([]);
   
-  const { isScanning, progress, results, error, scanManifest, resetScan, setScanResults } = useScan();
+  const { isScanning, progress, results, error, scanManifest, cancelScan, resetScan, setScanResults } = useScan();
 
   useEffect(() => {
     getScans().then(setHistory);
@@ -105,12 +106,13 @@ function App() {
             animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-            className="min-h-screen"
+            className="relative z-10 min-h-screen"
           >
             <DashboardLayout 
               onHome={() => setView('landing')} 
               scanResults={results}
               onOpenHistory={() => setIsHistoryOpen(true)}
+              isPackageDetailsOpen={isPackageDetailsOpen}
             >
               <AnimatePresence mode="wait">
                 {error && (
@@ -157,12 +159,20 @@ function App() {
                       </h1>
                       
                       <div className="border-t border-black/20 pt-8 w-full max-w-2xl">
-                        <div className="flex justify-between text-sm tracking-wider text-black mb-3 font-bold uppercase">
+                        <div className="flex flex-col gap-3 text-sm tracking-wider text-black mb-3 font-bold uppercase sm:flex-row sm:items-center sm:justify-between">
                           <div className="flex items-center gap-2">
                             <span className="w-2 h-2 bg-black rounded-full animate-pulse"></span>
                             <span>FETCHING_REGISTRY_AND_VULN_DATA</span>
                           </div>
-                          <span className="font-mono text-lg">{progress}%</span>
+                          <div className="flex items-center justify-between gap-3 sm:justify-end">
+                            <span className="font-mono text-lg">{progress}%</span>
+                            <button
+                              onClick={cancelScan}
+                              className="min-h-11 border border-black/30 px-4 py-2 text-xs font-bold tracking-wider hover:bg-black hover:text-white transition-colors"
+                            >
+                              [ CANCEL SCAN ]
+                            </button>
+                          </div>
                         </div>
                         <div className="w-full h-2 bg-black/10 overflow-hidden relative">
                           <motion.div 
@@ -209,7 +219,11 @@ function App() {
                     exit={{ opacity: 0 }}
                     transition={{ duration: 0.5, delay: 0.2 }}
                   >
-                    <ScanResults results={results} onReset={resetScan} />
+                    <ScanResults
+                      results={results}
+                      onReset={resetScan}
+                      onPackageDetailsOpenChange={setIsPackageDetailsOpen}
+                    />
                   </motion.div>
                 )}
 

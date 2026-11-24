@@ -6,7 +6,7 @@ interface AboutProps {
 
 export default function About({ onBack }: AboutProps) {
   return (
-    <div className="relative min-h-screen bg-[#f4f4f4] text-black overflow-hidden font-sans selection:bg-black selection:text-white">
+    <div className="relative min-h-[100dvh] bg-[#f4f4f4] text-black overflow-x-clip font-sans selection:bg-black selection:text-white">
       <div className="absolute inset-0 pointer-events-none flex justify-between px-8 md:px-24">
         <div className="w-px h-full bg-black/10" />
         <div className="w-px h-full bg-black/10 hidden md:block" />
@@ -18,7 +18,7 @@ export default function About({ onBack }: AboutProps) {
         style={{ backgroundImage: `url('/statue4.png')` }}
       />
 
-      <header className="relative z-10 flex justify-between items-center p-8 md:p-12 font-mono text-xs md:text-sm uppercase tracking-widest">
+      <header className="relative z-10 flex justify-between items-center p-4 sm:p-8 md:p-12 font-mono text-xs md:text-sm uppercase tracking-widest">
         <div className="font-bold cursor-pointer" onClick={onBack}>
           GLASS//ROOT
         </div>
@@ -30,12 +30,12 @@ export default function About({ onBack }: AboutProps) {
         </button>
       </header>
 
-      <main className="relative z-10 px-8 md:px-24 mt-12 md:mt-20 pb-32">
+      <main className="relative z-10 px-4 sm:px-8 md:px-24 mt-8 md:mt-20 pb-20 md:pb-32">
         <motion.h1 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
-          className="text-[12vw] md:text-[8vw] leading-[0.85] font-bold tracking-tighter mb-16"
+          className="text-[10vw] sm:text-[12vw] md:text-[8vw] leading-[0.85] font-bold tracking-tighter mb-10 md:mb-16"
         >
           About.
         </motion.h1>

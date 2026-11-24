@@ -30,6 +30,7 @@ const PackageNode = ({ data }: { data: any }) => {
     <div className={`px-4 py-2 font-mono text-xs uppercase tracking-wider min-w-[150px] text-center transition-all ${getRiskStyles(data.risk)}`}>
       <Handle type="target" position={Position.Top} className="opacity-0" />
       <div className="font-bold truncate">{data.label}</div>
+      {data.version && <div className="text-[9px] mt-1 opacity-70">v{data.version}</div>}
       <div className="text-[9px] mt-1 opacity-70">{data.risk}</div>
       <Handle type="source" position={Position.Bottom} className="opacity-0" />
     </div>
@@ -70,10 +71,10 @@ export default function DependencyRadar({ results }: DependencyRadarProps) {
       const y = radius * Math.sin(angle);
 
       initialNodes.push({
-        id: pkg.name,
+        id: `${pkg.name}@${pkg.resolvedVersion ?? pkg.versionRange}`,
         type: 'package',
         position: { x, y },
-        data: { label: pkg.name, risk: pkg.riskLabel },
+        data: { label: pkg.name, version: pkg.resolvedVersion, risk: pkg.riskLabel },
       });
 
       const edgeColor = pkg.riskLabel === 'Critical' ? '#dc2626' : 
@@ -82,9 +83,9 @@ export default function DependencyRadar({ results }: DependencyRadarProps) {
                         pkg.riskLabel === 'Low' ? '#22c55e' : '#9ca3af';
 
       initialEdges.push({
-        id: `edge-${pkg.name}`,
+        id: `edge-${pkg.name}@${pkg.resolvedVersion ?? pkg.versionRange}`,
         source: 'root',
-        target: pkg.name,
+        target: `${pkg.name}@${pkg.resolvedVersion ?? pkg.versionRange}`,
         animated: pkg.riskLabel === 'Critical',
         style: { stroke: edgeColor, strokeWidth: pkg.riskLabel === 'Critical' || pkg.riskLabel === 'High' ? 2 : 1 },
         markerEnd: {

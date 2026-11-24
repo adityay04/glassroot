@@ -6,7 +6,7 @@ interface DocsProps {
 
 export default function Docs({ onBack }: DocsProps) {
   return (
-    <div className="relative min-h-screen bg-[#f4f4f4] text-black overflow-hidden font-sans selection:bg-black selection:text-white">
+    <div className="relative min-h-[100dvh] bg-[#f4f4f4] text-black overflow-x-clip font-sans selection:bg-black selection:text-white">
       <div className="absolute inset-0 pointer-events-none flex justify-between px-8 md:px-24">
         <div className="w-px h-full bg-black/10" />
         <div className="w-px h-full bg-black/10 hidden md:block" />
@@ -18,7 +18,7 @@ export default function Docs({ onBack }: DocsProps) {
         style={{ backgroundImage: `url('/statue3.png')` }}
       />
 
-      <header className="relative z-10 flex justify-between items-center p-8 md:p-12 font-mono text-xs md:text-sm uppercase tracking-widest">
+      <header className="relative z-10 flex justify-between items-center p-4 sm:p-8 md:p-12 font-mono text-xs md:text-sm uppercase tracking-widest">
         <div className="font-bold cursor-pointer" onClick={onBack}>
           GLASS//ROOT
         </div>
@@ -30,12 +30,12 @@ export default function Docs({ onBack }: DocsProps) {
         </button>
       </header>
 
-      <main className="relative z-10 px-8 md:px-24 mt-12 md:mt-20 pb-32">
+      <main className="relative z-10 px-4 sm:px-8 md:px-24 mt-8 md:mt-20 pb-20 md:pb-32">
         <motion.h1 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
-          className="text-[12vw] md:text-[8vw] leading-[0.85] font-bold tracking-tighter mb-16"
+          className="text-[10vw] sm:text-[12vw] md:text-[8vw] leading-[0.85] font-bold tracking-tighter mb-10 md:mb-16"
         >
           Documentation.
         </motion.h1>
@@ -45,13 +45,13 @@ export default function Docs({ onBack }: DocsProps) {
             <div>
               <h2 className="text-2xl font-bold mb-4 uppercase tracking-tighter">1. Import Manifest</h2>
               <p className="text-black/70">
-                Paste your `package.json` contents into the terminal input or drag and drop the file directly. The parser extracts all dependencies and devDependencies.
+                Paste or upload `package.json`, `package-lock.json`, `npm-shrinkwrap.json`, `yarn.lock`, or `pnpm-lock.yaml`. Lockfiles include exact versions for direct and transitive packages; a manifest's version ranges are resolved against npm.
               </p>
             </div>
             <div>
               <h2 className="text-2xl font-bold mb-4 uppercase tracking-tighter">2. Scan Engine</h2>
               <p className="text-black/70">
-                The tool queries the npm registry for metadata and the OSV database for known vulnerabilities. It calculates a heuristic risk score based on missing repos, recent publication dates, and confirmed CVEs.
+                The tool queries the npm registry for metadata and OSV for the resolved package version. It parses supported CVSS vectors into numeric scores and shows OSV's applicable fixed-version events when available.
               </p>
             </div>
             <div>

@@ -26,7 +26,7 @@ export default function Hero({ onStart, onNavigate }: HeroProps) {
   }, []);
 
   return (
-    <div className="relative h-screen bg-[#f4f4f4] text-black overflow-hidden font-sans selection:bg-black selection:text-white flex flex-col">
+    <div className="relative min-h-[100dvh] bg-[#f4f4f4] text-black overflow-x-clip font-sans selection:bg-black selection:text-white flex flex-col">
       <div className="absolute inset-0 pointer-events-none flex justify-between px-8 md:px-24">
         <div className="w-px h-full bg-black/10" />
         <div className="w-px h-full bg-black/10 hidden md:block" />
@@ -38,13 +38,13 @@ export default function Hero({ onStart, onNavigate }: HeroProps) {
         style={{ backgroundImage: `url('/statue.png')` }}
       />
 
-      <header className="relative z-10 flex justify-between items-center p-6 md:p-8 font-mono text-xs md:text-sm uppercase tracking-widest shrink-0">
+      <header className="relative z-10 flex justify-between items-center p-4 sm:p-6 md:p-8 font-mono text-xs md:text-sm uppercase tracking-widest shrink-0">
         <div className="font-bold">
           GLASS//ROOT
         </div>
         
-        <div className="flex items-center gap-8">
-          <nav className="flex gap-6 items-center">
+        <div className="flex items-center gap-3 sm:gap-8">
+          <nav className="flex gap-3 sm:gap-6 items-center">
             <button 
               onClick={onStart} 
               className="relative group cursor-pointer hover:text-black/60 transition-colors duration-300"
@@ -69,7 +69,7 @@ export default function Hero({ onStart, onNavigate }: HeroProps) {
         </div>
       </header>
 
-      <main className="relative z-10 px-8 md:px-24 flex-1 flex flex-col justify-start pt-4 md:pt-12 pb-8 overflow-y-auto custom-scrollbar">
+      <main className="relative z-10 px-4 sm:px-8 md:px-24 flex-1 flex flex-col justify-start pt-4 md:pt-12 pb-16">
         <div className="relative">
           <motion.h1 
             initial={{ opacity: 0, y: 20 }}
@@ -152,7 +152,7 @@ export default function Hero({ onStart, onNavigate }: HeroProps) {
         </div>
       </main>
       
-      <div className="relative z-20 w-full overflow-hidden bg-black py-3 shrink-0">
+      <div className="fixed bottom-0 left-0 z-30 w-full overflow-hidden bg-black py-3 pointer-events-none">
         <div className="animate-marquee whitespace-nowrap font-mono text-[10px] md:text-xs uppercase tracking-[0.2em] text-white/80">
           <span className="mx-4">GLASS//ROOT v0.1.0</span>
           <span className="mx-4">///</span>

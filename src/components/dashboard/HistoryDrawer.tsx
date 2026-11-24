@@ -28,7 +28,7 @@ export default function HistoryDrawer({ isOpen, onClose, history, onLoad, onClea
             transition={{ type: 'spring', damping: 25, stiffness: 200 }}
             className="fixed top-0 left-0 bottom-0 w-full max-w-md bg-[#f4f4f4] border-r border-black/20 z-50 flex flex-col shadow-2xl"
           >
-            <div className="p-6 border-b border-black/20 flex justify-between items-center bg-white/50">
+            <div className="p-4 sm:p-6 border-b border-black/20 flex justify-between items-center bg-white/50">
               <h2 className="text-xl font-bold uppercase tracking-tighter">Scan_History</h2>
               <button 
                 onClick={onClose}
@@ -38,7 +38,7 @@ export default function HistoryDrawer({ isOpen, onClose, history, onLoad, onClea
               </button>
             </div>
 
-            <div className="flex-1 overflow-y-auto p-6 flex flex-col gap-4 custom-scrollbar">
+            <div className="flex-1 overflow-y-auto p-4 sm:p-6 flex flex-col gap-4 custom-scrollbar">
               {history.length === 0 ? (
                 <p className="text-sm text-black/50 font-medium text-center mt-10">
                   No previous scans found.
@@ -65,7 +65,7 @@ export default function HistoryDrawer({ isOpen, onClose, history, onLoad, onClea
             </div>
 
             {history.length > 0 && (
-              <div className="p-6 border-t border-black/20 bg-white/50">
+              <div className="p-4 sm:p-6 border-t border-black/20 bg-white/50">
                 <button 
                   onClick={onClear}
                   className="w-full border border-red-600/30 text-red-600 font-bold text-xs uppercase tracking-wider py-2 hover:bg-red-600 hover:text-white transition-colors"

@@ -1,12 +1,23 @@
 import { ScanResult } from '../../types';
+import { getFixedVersions } from '../osv';
 
 export const generateAIAnalysis = async (apiKey: string, scanResults: ScanResult[]) => {
   const compactResults = scanResults.map(pkg => ({
     name: pkg.name,
-    version: pkg.versionRange,
+    requestedVersion: pkg.versionRange,
+    resolvedVersion: pkg.resolvedVersion ?? 'unresolved',
     risk: pkg.riskLabel,
     signals: pkg.signals,
-    vulns: pkg.vulnerabilities.map(v => ({ id: v.id, summary: v.summary }))
+    riskFactors: pkg.riskFactors ?? [],
+    vulns: pkg.vulnerabilities.map(v => ({
+      id: v.id,
+      summary: v.summary,
+      severity: v.severity?.map(severity => ({
+        type: severity.type,
+        score: severity.baseScore,
+      })),
+      fixedVersions: pkg.resolvedVersion ? getFixedVersions(v, pkg.resolvedVersion, pkg.name) : [],
+    }))
   }));
 
   const prompt = `
